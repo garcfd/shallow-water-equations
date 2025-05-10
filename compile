@@ -1,1 +1,3 @@
-pgf90 -static-nvidia -fast -O2 -o shallow shallow-water-model-02.for
+pgf90 -static-nvidia -fast -O2 -o shallow shallow-water-model-04.for
+
+gfortran -m64 -Wall -fcheck=all -fbounds-check -pedantic -fbacktrace -o shallow shallow-water-model-04.for
