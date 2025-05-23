@@ -37,13 +37,15 @@ C-----specify constants
       dt = 0.01    ! timestep
       eps = 0.1    ! smoothing (0.05)
 
-      uin  = 0.5
-      umax = 1.0
-      vmax = 1.0
+      uin  = 0.5   ! inlet  
 
-      hmax = 1.0
-      nsav = 100
-      nits = 200
+      umax = 1.0   ! limiter
+      vmax = 1.0   ! limiter
+
+      hmax = 1.0   ! monitor
+
+      nsav = 200
+      nits = 100
 
       dtdx = dt/dx
       dtdy = dt/dy
@@ -170,14 +172,18 @@ C-----step2 - vectors at ghost cell centres
         endif
         endif
 
+C-------if need to specify inlet velocity
         if ((i.eq.0).and.(live(1,j).eq.1)) then ! xmin inlet velocity
           gc = 1
           uu = uin
+          vv = 0.0
         endif
 
+C-------if need to specify outet velocity
         if ((i.eq.ni+1).and.(live(ni,j).eq.1)) then ! xmax outlet boundary
           gc = 1
           uu = u(i-1,j)
+          vv = v(i-1,j)
         endif
 
         if (gc.eq.1) then ! ghost cell
